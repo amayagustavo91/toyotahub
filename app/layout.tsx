@@ -1,3 +1,4 @@
+// Toyota IA Training Hub
 import type { Metadata } from 'next'
 import './globals.css'
 
