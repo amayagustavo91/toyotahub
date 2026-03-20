@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+}
+@layer components {
+  .stat-card { @apply bg-white border border-black/8 rounded-toyota-lg p-5 shadow-sm relative overflow-hidden; }
+  .stat-card::before { content: ''; @apply absolute top-0 left-0 right-0 h-[3px] bg-toyota-red; }
+  .btn-primary { @apply bg-toyota-red hover:bg-toyota-red-dark text-white font-black uppercase tracking-widest text-sm rounded-toyota transition-colors px-5 py-3 disabled:opacity-50 w-full; }
+  .input-field { @apply w-full px-4 py-3 bg-toyota-surface border-[1.5px] border-black/15 rounded-toyota text-sm font-medium outline-none focus:border-toyota-red focus:bg-white transition-colors; }
+  .page-title { @apply text-2xl font-black leading-none; }
+  .page-title span { @apply text-toyota-red; }
+  .section-label { @apply text-xs font-black uppercase tracking-widest text-toyota-muted flex items-center gap-3 mb-4; }
+  .section-label::after { content: ''; @apply flex-1 h-px bg-black/8; }
+  .progress-bar-track { @apply bg-gray-100 rounded-full overflow-hidden; }
+  .progress-bar-fill { @apply h-full rounded-full bg-toyota-red transition-all duration-500; }
+}
