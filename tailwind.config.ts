@@ -13,10 +13,10 @@ const config: Config = {
           'muted-2': '#555555',
         },
       },
-      fontFamily: {
-        sans: ['Nunito Sans', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        mono: ['DM Mono', 'monospace'],
-      },
+fontFamily: {
+  sans: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+  mono: ['Courier New', 'monospace'],
+},
       borderRadius: { toyota: '6px', 'toyota-lg': '10px' },
     },
   },
