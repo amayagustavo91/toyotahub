@@ -31,3 +31,5 @@ Ejecutar en Supabase SQL Editor en este orden:
 1. schema.sql
 2. rls.sql  
 3. seed.sql
+
+   
