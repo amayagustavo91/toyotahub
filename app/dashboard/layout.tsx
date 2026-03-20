@@ -8,7 +8,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).maybeSingle()
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .maybeSingle()
+
+  console.log('USER ID:', user.id)
+  console.log('PROFILE:', JSON.stringify(profile))
+
   return (
     <div className="flex min-h-screen">
       <Sidebar profile={profile}/>
