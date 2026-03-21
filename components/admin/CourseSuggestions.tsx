@@ -23,34 +23,34 @@ export default function CourseSuggestions({ initialSuggestions }: { initialSugge
   const filtered = filter === 'all' ? suggestions : suggestions.filter(s => s.status === filter)
 
   async function addToCourses(suggestion: Suggestion) {
-    const validCategories = ['fundamentos', 'prompting', 'productividad', 'vibecoding', 'agentes']
-    const category = validCategories.includes(suggestion.category ?? '')
-      ? suggestion.category
-      : 'fundamentos'
+  const validCategories = ['fundamentos', 'prompting', 'productividad', 'vibecoding', 'agentes']
+  const category = validCategories.includes(suggestion.category ?? '')
+    ? suggestion.category
+    : 'fundamentos'
 
-    const { error } = await supabase.from('courses').insert({
-      title: suggestion.title,
-      organization: 'Sugerido por el equipo',
-      description: suggestion.description,
-      url: suggestion.url,
-      category: category,
-      is_active: true,
-    })
+  const { error } = await supabase.from('courses').insert({
+    title: suggestion.title,
+    organization: 'Sugerido por el equipo',
+    description: suggestion.description,
+    url: suggestion.url,
+    category: category,
+    is_active: true,
+  })
 
-    if (!error) {
-      await supabase.from('course_suggestions').update({ status: 'approved' }).eq('id', suggestion.id)
-      setSuggestions(prev => prev.map(s => s.id === suggestion.id ? { ...s, status: 'approved' } : s))
-      router.refresh()
-    } else {
-      alert('Error al agregar el curso: ' + error.message)
-    }
-  }
-
-  async function updateStatus(id: string, status: 'approved' | 'rejected') {
-    setSuggestions(prev => prev.map(s => s.id === id ? { ...s, status } : s))
-    await supabase.from('course_suggestions').update({ status }).eq('id', id)
+  if (!error) {
+    await supabase.from('course_suggestions').update({ status: 'approved' }).eq('id', suggestion.id)
+    setSuggestions(prev => prev.filter(s => s.id !== suggestion.id))
     router.refresh()
+  } else {
+    alert('Error al agregar el curso: ' + error.message)
   }
+}
+
+async function updateStatus(id: string, status: 'approved' | 'rejected') {
+  await supabase.from('course_suggestions').update({ status }).eq('id', id)
+  setSuggestions(prev => prev.filter(s => s.id !== id))
+  router.refresh()
+}
 
   const statusBadge: Record<string, string> = {
     pending:  'bg-amber-50 text-amber-700 border-amber-200',
