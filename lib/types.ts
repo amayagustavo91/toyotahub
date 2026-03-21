@@ -28,4 +28,3 @@ export const PLAN_PHASES = [
   { num: 1, name: 'Fundamentos de IA', duration: 'Semanas 1-2', desc: 'Entender que es la IA, como funciona y por que importa en el entorno industrial. Base conceptual para todo el equipo.' },
   { num: 2, name: 'Productividad con IA', duration: 'Semanas 3-6', desc: 'Usar herramientas de IA en el trabajo diario: Copilot en Office y automatizacion de procesos con Power Automate.' },
 ]
-]
