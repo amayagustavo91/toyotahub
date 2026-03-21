@@ -23,9 +23,9 @@ export const CATEGORY_META: Record<CourseCategory, { label: string; icon: string
   agentes:       { label: 'Agentes de IA',       icon: '🤖', color: '#6d28d9', dim: 'rgba(109,40,217,0.10)' },
   prompting:     { label: 'Prompting avanzado',  icon: '✍️', color: '#EB0A1E', dim: 'rgba(235,10,30,0.08)'  },
 }
+
 export const PLAN_PHASES = [
-  { num: 1, name: 'Fundamentos de IA',            duration: 'Semanas 1-4',   desc: 'Entender que es la IA y por que importa en el entorno industrial.' },
-  { num: 2, name: 'Herramientas de IA generativa', duration: 'Semanas 5-8',   desc: 'Usar asistentes de IA para tareas cotidianas sin codigo.' },
-  { num: 3, name: 'Prompting y Vibe Coding',       duration: 'Semanas 9-10',  desc: 'Instrucciones precisas y primeras herramientas propias sin codigo.' },
-  { num: 4, name: 'Agentes y automatizacion',      duration: 'Semanas 11-12', desc: 'Flujos automatizados y agentes autonomos.' },
+  { num: 1, name: 'Fundamentos de IA', duration: 'Semanas 1-2', desc: 'Entender que es la IA, como funciona y por que importa en el entorno industrial. Base conceptual para todo el equipo.' },
+  { num: 2, name: 'Productividad con IA', duration: 'Semanas 3-6', desc: 'Usar herramientas de IA en el trabajo diario: Copilot en Office y automatizacion de procesos con Power Automate.' },
+]
 ]
