@@ -8,7 +8,6 @@ const NAV = [
   { href: '/dashboard/cursos',   icon: '📚', label: 'Cursos' },
   { href: '/dashboard/plan',     icon: '🗺️',  label: 'Plan recomendado' },
   { href: '/dashboard/progreso', icon: '📈', label: 'Mi progreso' },
-  { href: '/dashboard/ranking',  icon: '🏆', label: 'Ranking' },
 ]
 
 function ToyotaOval() {
