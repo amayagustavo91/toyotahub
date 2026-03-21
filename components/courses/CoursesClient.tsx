@@ -14,7 +14,7 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
   const [localRecs, setLocalRecs] = useState<Set<string>>(new Set(myRecs))
   const [localRecsByCourse, setLocalRecsByCourse] = useState(recsByCourse)
   const [showSuggest, setShowSuggest] = useState(false)
-  const [suggest, setSuggest] = useState({ title: '', url: '', description: '', category: 'fundamentos' })
+  const [suggest, setSuggest] = useState({ title: '', url: '', description: '', category: 'fundamentos', customCategory: '' })
   const [suggestSent, setSuggestSent] = useState(false)
   const [, startTransition] = useTransition()
   const router = useRouter()
@@ -67,10 +67,10 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
       title: suggest.title,
       url: suggest.url,
       description: suggest.description,
-      category: suggest.category,
+      category: suggest.category === 'otros' ? (suggest.customCategory || 'otros') : suggest.category,
     })
     setSuggestSent(true)
-    setSuggest({ title: '', url: '', description: '', category: 'fundamentos' })
+    setSuggest({ title: '', url: '', description: '', category: 'fundamentos', customCategory: '' })
     setTimeout(() => { setSuggestSent(false); setShowSuggest(false) }, 3000)
   }
 
@@ -111,7 +111,7 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-yellow-500 text-sm">⭐</span>
                     <span className="text-[10px] font-black text-yellow-700 uppercase tracking-widest">
-                      Recomendado por {recommenders.slice(0, 2).join(', ')}{recommenders.length > 2 ? ` y ${recommenders.length - 2} más` : ''}
+                      Recomendado por {recommenders.slice(0, 2).join(', ')}{recommenders.length > 2 ? ` y ${recommenders.length - 2} mas` : ''}
                     </span>
                   </div>
                   <h3 className="text-sm font-black leading-snug mb-1">{course.title}</h3>
@@ -161,7 +161,7 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
 
               {recommenders.length > 0 && (
                 <p className="text-[11px] text-yellow-700 font-semibold">
-                  ⭐ Recomendado por: {recommenders.slice(0, 3).join(', ')}{recommenders.length > 3 ? ` y ${recommenders.length - 3} más` : ''}
+                  ⭐ Recomendado por: {recommenders.slice(0, 3).join(', ')}{recommenders.length > 3 ? ` y ${recommenders.length - 3} mas` : ''}
                 </p>
               )}
 
@@ -193,11 +193,11 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
         })}
       </div>
 
-      {/* Botón sugerir curso */}
+      {/* Sugerir curso */}
       <div className="mt-8 border-t border-gray-100 pt-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <div className="text-sm font-black">¿Encontraste un curso util?</div>
+            <div className="text-sm font-black">Encontraste un curso util?</div>
             <div className="text-xs text-gray-400 font-semibold">Sugerilo al equipo y el admin lo puede agregar a la biblioteca</div>
           </div>
           <button onClick={() => setShowSuggest(!showSuggest)}
@@ -210,7 +210,7 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
           <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 flex flex-col gap-3">
             {suggestSent ? (
               <div className="text-center py-4">
-                <div className="text-green-600 font-black text-lg mb-1">✓ Sugerencia enviada</div>
+                <div className="text-green-600 font-black text-lg mb-1">Sugerencia enviada</div>
                 <div className="text-xs text-gray-400">El admin va a revisar tu sugerencia</div>
               </div>
             ) : (
@@ -239,7 +239,14 @@ export default function CoursesClient({ courses, progressMap, userId, myRecs, re
                     <option value="prompting">Prompting avanzado</option>
                     <option value="vibecoding">Vibe Coding</option>
                     <option value="agentes">Agentes de IA</option>
+                    <option value="otros">Otros / Nueva categoria</option>
                   </select>
+                  {suggest.category === 'otros' && (
+                    <input type="text" value={suggest.customCategory}
+                      onChange={e => setSuggest(p => ({...p, customCategory: e.target.value}))}
+                      placeholder="Escribi el nombre de la nueva categoria"
+                      className="input-field mt-2"/>
+                  )}
                 </div>
                 <div className="flex gap-2 justify-end">
                   <button onClick={() => setShowSuggest(false)}
