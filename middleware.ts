@@ -2,15 +2,15 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  
+
+  if (pathname.startsWith('/login')) return NextResponse.next()
+  if (pathname.startsWith('/_next')) return NextResponse.next()
+  if (pathname === '/') return NextResponse.redirect(new URL('/login', request.url))
+
   const hasSession = request.cookies.getAll()
-    .some(c => c.name.startsWith('sb-') && c.name.endsWith('-auth-token'))
+    .some(c => c.name.startsWith('sb-'))
 
-  if (!hasSession && !pathname.startsWith('/login'))
-    return NextResponse.redirect(new URL('/login', request.url))
-
-  if (hasSession && pathname === '/login')
-    return NextResponse.redirect(new URL('/dashboard/cursos', request.url))
+  if (!hasSession) return NextResponse.redirect(new URL('/login', request.url))
 
   return NextResponse.next()
 }
